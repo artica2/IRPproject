@@ -55,7 +55,10 @@ public class TreeBuilder : MonoBehaviour
 
     private void Update()
     {
-        behaviourTree.Execute();
+        if (behaviourTree != null)
+        {
+            behaviourTree.Execute();
+        }
     }
     public List<string> ParseString(string stringToParse)
     {

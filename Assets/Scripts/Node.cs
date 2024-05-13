@@ -20,7 +20,6 @@ public class Node
     public void InitializeNode()
     {
         Children = new List<Node>();
-        Debug.Log("Initialized");
     }
 
     public virtual void ExecuteNode(float deltaTime, GameObject obj)

@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class SequenceNode : Node
 {
-    public int currentNode;
-    
+    public int currentNode; // which child is active
 
-    // Start is called before the first frame update
-    void Start()
+    public override void InitializeNode(string descriptor = " ")
     {
-        
+        base.InitializeNode();
+        TreeBuilder.instance.contextNode = this; // as this is a flow node, it should be set as the context node
     }
 
     // Update is called once per frame
     public override void ExecuteNode(float deltaTime, GameObject obj)
     {
+        // iterate through each child until either one fails or they all succeed
         if (Children[currentNode].finishedExecuting)
         {
             if (Children[currentNode].isSuccess) // if child executed successfully

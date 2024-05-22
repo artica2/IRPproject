@@ -1,38 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using LLMUnity;
+using TMPro;
 
 public class LLMreader : MonoBehaviour
 {
-    public LLM llm;
+    public LLM llm; // the large language model
+    public string replyToProcess; // the reply to be sent to the tree builder script
+    public TMP_InputField input;
 
     void HandleReply(string reply)
     {
-        Debug.Log("Handling reply!");
-        Debug.Log("reply is " + reply);
+        replyToProcess = reply; // load the reply to the replytoprocess string
     }
 
     void ReplyCompleted()
     {
-        Debug.Log("AI finished Replying");
-    }
-    // Start is called before the first frame update
-    private void Start()
-    {
-
+        Debug.Log("Reply is: " + replyToProcess);
+        // once complete, send the reply to the tree builder script
+        TreeBuilder.instance.stringToProcess = replyToProcess;
+        TreeBuilder.instance.inputToProcess = true;
     }
 
     public void OnClick()
     {
-
-        string message = "Hello! I would like you to dance and then move to the target please!";
-        _ = llm.Chat(message, HandleReply, ReplyCompleted);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        string messageTest = input.text; // get instructions from the input field
+        _ = llm.Chat(messageTest, HandleReply, ReplyCompleted); // chat with the llm
     }
 }
